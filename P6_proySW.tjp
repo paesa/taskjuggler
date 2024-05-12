@@ -30,7 +30,7 @@ project pSix "Web Game"  2024-05-13 +2.5m {
 }
 
 # This is not a real copyright for this file. It's just used as an example.
-copyright "Creative Commons 2023 Proyecto Software - Unizar."
+copyright "Creative Commons 2024 Proyecto Software - Unizar."
 
 # The daily default rate of all resources. This can be overridden for each
 # resource. We specify this, so that we can do a good calculation of
@@ -45,6 +45,7 @@ rate 145.2
 account cost "Project Cost" {
   account manag "Management"
   account wFront "Web Front-End"
+  account mFront "Mobile Front-End"
   account back "Back-End"
 }
 account rev "Payments"
@@ -53,7 +54,7 @@ balance cost rev
 
 resource boss "Liz Bullock" {
   email "iiii@unizar.es"
-  actual:leaves project 2023-05-07 - 2023-05-12
+  actual:leaves project 2024-05-07 - 2024-05-12
   rate 160
 }
 resource dev1 "Paul Smith" {
@@ -62,13 +63,22 @@ resource dev1 "Paul Smith" {
 resource dev2 "Samantha Müller" {
   email "jjj@unizar.es"
   rate 100
-  actual:leaves project 2023-05-07 - 2023-05-12
+  actual:leaves project 2024-05-07 - 2024-05-12
 }
 resource dev3 "Peter Green" {
   email "kkk@unizar.es"
 }
 
+shift halfday "monday - friday 4h" {
+  # 4h per day
+  workinghours mon - fri 10:00-14:00
+}
 
+resource Carlos "Carlos Paesa" {
+  email "798974@unizar.es"
+  rate 100
+  shifts halfday
+}
 
 # Now we specify the work packages. The whole project is described as
 # a task that contains subtasks. These subtasks are then broken down
@@ -108,7 +118,7 @@ task WMGame "Web & Mobile Game" {
       actual:effort 11d
       allocate dev1, dev2
       depends WMGame.tback.tBEd
-      journalentry 2023-03-28 "Game logic completed before deadline" {
+      journalentry 2024-03-28 "Game logic completed before deadline" {
         author boss
         alert green
         summary "The team has ended the game logic before deadline."
@@ -124,20 +134,20 @@ task WMGame "Web & Mobile Game" {
   task tbackCloud "Back End Cloud Deployment" {
     purge chargeset
     chargeset back
-    responsible dev1
+    responsible Carlos
     depends WMGame.tback
     task tAlternatives "Researching Cloud Alternatives" {
       effort 3d
-      allocate dev1
+      allocate Carlos
       journalentry 2024-04-10 "Final Cloud Provider" {
-        author dev1
+        author Carlos
         alert green
         summary "The most suitable cloud provider is AWS."
       }
     }
     task tCloud "Cloud Deployment" {
       effort 5d
-      allocate dev1
+      allocate Carlos
       depends WMGame.tbackCloud.tAlternatives
     }
   }
@@ -151,7 +161,7 @@ task WMGame "Web & Mobile Game" {
       effort 9d
       actual:effort 15d
       allocate dev3
-      journalentry 2023-04-11 "Problems with the GUI design tool" {
+      journalentry 2024-05-13 "Problems with the GUI design tool" {
         author dev3
         alert yellow
         summary "The tool used for the GUI design has given me a lot of problems. I recommend to look for other one."
@@ -177,7 +187,7 @@ task WMGame "Web & Mobile Game" {
     task tMobileGUId "Mobile GUI Design" {
       effort 3d
       actual:effort 2d
-      allocate dev1
+      allocate Carlos
       journalentry 2024-04-12 "Easy design tool" {
         author dev3
         alert green
@@ -203,7 +213,7 @@ task WMGame "Web & Mobile Game" {
       allocate boss
       allocate dev2
       actual:effort 15d
-      journalentry 2023-04-13 "Problems with the planned dates" {
+      journalentry 2024-04-13 "Problems with the planned dates" {
         author boss
         alert red
         summary "The whole team asiigned to this task has a trip to visit a new client from May 7th to May 12th. Needed to check if the project can be finished on time or it is necessary to reasign efforts."
@@ -328,15 +338,6 @@ taskreport overview "" {
   caption 'All effort values are in man days.'
 }
 
-
-# Macro to set the background color of a cell according to the alert
-# level of the task.
-macro AlertColor [
-  cellcolor plan.alert = 0 "#00D000" # green
-  cellcolor plan.alert = 1 "#D0D000" # yellow
-  cellcolor plan.alert = 2 "#D00000" # red
-]
-
 taskreport initial "" {
   scenarios plan
   headline "Initial Planning"
@@ -351,6 +352,15 @@ taskreport initial "" {
   balance cost rev
   caption 'All effort values are in man days.'
 }
+
+
+# Macro to set the background color of a cell according to the alert
+# level of the task.
+macro AlertColor [
+  cellcolor plan.alert = 0 "#00D000" # green
+  cellcolor plan.alert = 1 "#D0D000" # yellow
+  cellcolor plan.alert = 2 "#D00000" # red
+]
 
 taskreport status "" {
   columns bsi { width 50 title 'WBS' }, name { width 150 },
