@@ -68,7 +68,7 @@ resource dev3 "Peter Green" {
   email "kkk@unizar.es"
 }
 
-shift halfday "monday - friday 4h" {
+shift t4h "monday - friday 4h" {
   # 4h per day
   workinghours mon - fri 10:00-14:00
 }
@@ -76,7 +76,7 @@ shift halfday "monday - friday 4h" {
 resource Carlos "Carlos Paesa" {
   email "798974@unizar.es"
   rate 100
-  shifts halfday
+  shifts t4h
 }
 
 # Now we specify the work packages. The whole project is described as
