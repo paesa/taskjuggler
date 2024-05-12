@@ -5,7 +5,7 @@
  * some elements of it
  */
 
-project pSix "Web Game"  2023-03-15 +2.5m {
+project pSix "Web Game"  2024-05-13 +2.5m {
   # Set the default time zone for the project. If not specified, UTC
   # is used.
   timezone "Europe/Paris"
@@ -19,7 +19,7 @@ project pSix "Web Game"  2023-03-15 +2.5m {
   # the project reports. If not specified, the current day will be
   # used, but this will likely be outside of the project range, so it
   # can't be seen in the reports.
-  now 2023-04-15-13:00
+  now 2024-05-13-13:00
   # The currency for all money values is the US Dollar.
   currency "EUR"
 
@@ -66,6 +66,17 @@ resource dev2 "Samantha Müller" {
 }
 resource dev3 "Peter Green" {
   email "kkk@unizar.es"
+}
+
+shift halfday "monday - friday 4h" {
+  # 4h per day
+  workinghours mon - fri 10:00-14:00
+}
+
+resource Carlos "Carlos Paesa" {
+  email "798974@unizar.es"
+  rate 100
+  shifts halfday
 }
 
 # Now we specify the work packages. The whole project is described as
