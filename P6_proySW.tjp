@@ -68,10 +68,7 @@ resource dev3 "Peter Green" {
   email "kkk@unizar.es"
 }
 
-resource Carlos "Carlos Paesa" {
-  email "798974@unizar.es"
-  rate 100
-}
+
 
 # Now we specify the work packages. The whole project is described as
 # a task that contains subtasks. These subtasks are then broken down
@@ -127,20 +124,20 @@ task WMGame "Web & Mobile Game" {
   task tbackCloud "Back End Cloud Deployment" {
     purge chargeset
     chargeset back
-    responsible Carlos
+    responsible dev1
     depends WMGame.tback
     task tAlternatives "Researching Cloud Alternatives" {
       effort 3d
-      allocate Carlos
+      allocate dev1
       journalentry 2024-04-10 "Final Cloud Provider" {
-        author Carlos
+        author dev1
         alert green
         summary "The most suitable cloud provider is AWS."
       }
     }
     task tCloud "Cloud Deployment" {
       effort 5d
-      allocate Carlos
+      allocate dev1
       depends WMGame.tbackCloud.tAlternatives
     }
   }
@@ -180,7 +177,7 @@ task WMGame "Web & Mobile Game" {
     task tMobileGUId "Mobile GUI Design" {
       effort 3d
       actual:effort 2d
-      allocate Carlos
+      allocate dev1
       journalentry 2024-04-12 "Easy design tool" {
         author dev3
         alert green
