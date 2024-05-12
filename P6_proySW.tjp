@@ -68,13 +68,9 @@ resource dev3 "Peter Green" {
   email "kkk@unizar.es"
 }
 
-shift halfday "monday - friday 4h" {
-  workinghours mon - fri 10:00 - 14:00
-}
-
 resource Carlos "Carlos Paesa" {
   email "798974@unizar.es"
-  shifts halfday
+  rate 100
 }
 
 # Now we specify the work packages. The whole project is described as
@@ -128,6 +124,27 @@ task WMGame "Web & Mobile Game" {
     }
   }
 
+  task tbackCloud "Back End Cloud Deployment" {
+    purge chargeset
+    chargeset back
+    responsible Carlos
+    depends WMGame.tback
+    task tAlternatives "Researching Cloud Alternatives" {
+      effort 3d
+      allocate Carlos
+      journalentry 2024-04-10 "Final Cloud Provider" {
+        author Carlos
+        alert green
+        summary "The most suitable cloud provider is AWS."
+      }
+    }
+    task tCloud "Cloud Deployment" {
+      effort 5d
+      allocate Carlos
+      depends WMGame.tbackCloud.tAlternatives
+    }
+  }
+
   task twebF "Web Front End" {
     purge chargeset
     chargeset wFront
@@ -155,7 +172,36 @@ task WMGame "Web & Mobile Game" {
     }    
   }
 
+  task tmobileF "Mobile Front End" {
+    purge chargeset
+    chargeset mFront
+    responsible dev1
+    depends WMGame.tgdesign
+    task tMobileGUId "Mobile GUI Design" {
+      effort 3d
+      actual:effort 2d
+      allocate Carlos
+      journalentry 2024-04-12 "Easy design tool" {
+        author dev3
+        alert green
+        summary "The tool used for the GUI design has made things faster."
+      }
+    }
+    task tMobileFEc "Mobile Front End Construction" {
+      effort 10d
+      actual:effort 11d
+      allocate dev1
+      depends WMGame.tmobileF.tMobileGUId
+    }
+    task tMobileFEt "Mobile Front End Test" {
+      effort 2d
+      allocate dev1
+      depends WMGame.tmobileF.tMobileFEc
+    }    
+  }
+
   task ttest "Accpetance tests" {
+      start 2024-06-01
       effort 10d
       allocate boss
       allocate dev2
@@ -166,7 +212,9 @@ task WMGame "Web & Mobile Game" {
         summary "The whole team asiigned to this task has a trip to visit a new client from May 7th to May 12th. Needed to check if the project can be finished on time or it is necessary to reasign efforts."
       }
       depends WMGame.twebF
+      depends WMGame.tmobileF
       depends WMGame.tback
+      depends WMGame.tbackCloud
   }
 
     
@@ -291,6 +339,21 @@ macro AlertColor [
   cellcolor plan.alert = 1 "#D0D000" # yellow
   cellcolor plan.alert = 2 "#D00000" # red
 ]
+
+taskreport initial "" {
+  scenarios plan
+  headline "Initial Planning"
+  columns bsi { title 'WBS' },
+          name, start, end, effort, cost,
+          revenue, chart { ${TaskTip} }
+  # For this report we like to have the abbreviated weekday in front
+  # of the date. %a is the tag for this.
+  timeformat "%a %Y-%m-%d"
+  loadunit days
+  hideresource @all
+  balance cost rev
+  caption 'All effort values are in man days.'
+}
 
 taskreport status "" {
   columns bsi { width 50 title 'WBS' }, name { width 150 },
