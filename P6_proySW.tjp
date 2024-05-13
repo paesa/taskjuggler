@@ -206,10 +206,11 @@ task WMGame "Web & Mobile Game" {
 
   task ttest "Accpetance tests" {
       effort 10d
+      start 2024-06-01
       allocate boss
       allocate dev2
       actual:effort 15d
-      journalentry 2024-04-13 "Problems with the planned dates" {
+      journalentry 2024-06-13 "Problems with the planned dates" {
         author boss
         alert red
         summary "The whole team asiigned to this task has a trip to visit a new client from May 7th to May 12th. Needed to check if the project can be finished on time or it is necessary to reasign efforts."
