@@ -5,8 +5,7 @@
  * some elements of it
  */
 
-
-project pSix "Web Game"  2023-03-15 +2.5m {
+project pSix "Web Game"  2024-03-15 +2.5m {
   # Set the default time zone for the project. If not specified, UTC
   # is used.
   timezone "Europe/Paris"
@@ -20,7 +19,7 @@ project pSix "Web Game"  2023-03-15 +2.5m {
   # the project reports. If not specified, the current day will be
   # used, but this will likely be outside of the project range, so it
   # can't be seen in the reports.
-  now 2023-04-15-13:00
+  now 2024-04-15-13:00
   # The currency for all money values is the US Dollar.
   currency "EUR"
 
@@ -31,7 +30,7 @@ project pSix "Web Game"  2023-03-15 +2.5m {
 }
 
 # This is not a real copyright for this file. It's just used as an example.
-copyright "Creative Commons 2023 Proyecto Software - Unizar."
+copyright "Creative Commons 2024 Proyecto Software - Unizar."
 
 # The daily default rate of all resources. This can be overridden for each
 # resource. We specify this, so that we can do a good calculation of
@@ -46,6 +45,7 @@ rate 145.2
 account cost "Project Cost" {
   account manag "Management"
   account wFront "Web Front-End"
+  account mFront "Mobile Front-End"
   account back "Back-End"
 }
 account rev "Payments"
@@ -54,7 +54,7 @@ balance cost rev
 
 resource boss "Liz Bullock" {
   email "iiii@unizar.es"
-  actual:leaves project 2023-05-07 - 2023-05-12
+  actual:leaves project 2024-05-07 - 2024-05-12
   rate 160
 }
 resource dev1 "Paul Smith" {
@@ -63,7 +63,15 @@ resource dev1 "Paul Smith" {
 resource dev2 "Samantha Müller" {
   email "jjj@unizar.es"
   rate 100
-  actual:leaves project 2023-05-07 - 2023-05-12
+  actual:leaves project 2024-05-07 - 2024-05-12
+}
+shift halfday "monday -friday 4h" {
+  workinghours mon - fri 10:00-14:00
+}
+resource Carlos "Carlos Paesa" {
+  email "798974@unizar.es"
+  rate 100
+  shifts halfday
 }
 resource dev3 "Peter Green" {
   email "kkk@unizar.es"
@@ -107,7 +115,7 @@ task WMGame "Web & Mobile Game" {
       actual:effort 11d
       allocate dev1, dev2
       depends WMGame.tback.tBEd
-      journalentry 2023-03-28 "Game logic completed before deadline" {
+      journalentry 2024-03-28 "Game logic completed before deadline" {
         author boss
         alert green
         summary "The team has ended the game logic before deadline."
@@ -129,7 +137,7 @@ task WMGame "Web & Mobile Game" {
       effort 9d
       actual:effort 15d
       allocate dev3
-      journalentry 2023-04-11 "Problems with the GUI design tool" {
+      journalentry 2024-04-11 "Problems with the GUI design tool" {
         author dev3
         alert yellow
         summary "The tool used for the GUI design has given me a lot of problems. I recommend to look for other one."
@@ -152,7 +160,7 @@ task WMGame "Web & Mobile Game" {
       allocate boss
       allocate dev2
       actual:effort 15d
-      journalentry 2023-04-13 "Problems with the planned dates" {
+      journalentry 2024-04-13 "Problems with the planned dates" {
         author boss
         alert red
         summary "The whole team asiigned to this task has a trip to visit a new client from May 7th to May 12th. Needed to check if the project can be finished on time or it is necessary to reasign efforts."
